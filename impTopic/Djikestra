@@ -1,0 +1,47 @@
+import heapq
+from collections import defaultdict
+
+class Solution:
+    
+    def __init__(self):
+        pass
+    
+    def djikstra(self, edges, start_node=0):
+        adj = defaultdict(list)
+        
+        # Build the adjacency list
+        for src, des, wei in edges:
+            adj[src].append((des, wei))
+            adj[des].append((src, wei))
+        
+        # Priority queue for Dijkstra's algorithm, starting from the specified node
+        pq = [(0, start_node)]  # (weight, node)
+        dist = {i: float('inf') for i in adj}  # Distance to each node, initialized to infinity
+        dist[start_node] = 0  # Distance to the start node is 0
+        
+        while pq:
+            weight, node = heapq.heappop(pq)  # Pop the node with the smallest distance
+            
+            # Traverse neighbors
+            for nei, wei in adj[node]:
+                new_dist = weight + wei
+                if new_dist < dist[nei]:
+                    dist[nei] = new_dist
+                    heapq.heappush(pq, (new_dist, nei))  # Push the new distance to the priority queue
+        
+        # Return the minimum distance to all nodes
+        return dist
+
+# Example usage:
+edges = [(0, 1, 4), (0, 2, 1), (1, 2, 2), (1, 3, 5), (2, 3, 1)]
+solution = Solution()
+distances = solution.djikstra(edges)
+
+# Get the minimum distance to node 3
+print("Minimum distance to node 3:", distances[3])
+
+# Get the minimum distance to node 1
+print("Minimum distance to node 1:", distances[1])
+
+# Get the minimum distance to node 4 (unreachable in this case)
+print("Minimum distance to node 4:", distances.get(4, 'Unreachable'))
