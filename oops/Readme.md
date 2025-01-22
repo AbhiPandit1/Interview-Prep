@@ -67,5 +67,10 @@ class Animal:
      def __init__(self,breed):
         self.breed=breed
      def sound(self,)
+
+## Type of inheritance
+
 ### polyporphism
+
+
 j
