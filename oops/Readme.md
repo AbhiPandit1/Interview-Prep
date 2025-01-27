@@ -69,6 +69,7 @@ class Animal:
      def sound(self,)
 
 ## Type of inheritance
+Inheriting the parent properties 
 
 ### polyporphism
 
